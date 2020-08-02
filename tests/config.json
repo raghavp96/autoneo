@@ -1,0 +1,50 @@
+{
+    "modelName" : "A",
+    "nodes" : [
+        {
+            "entityType" : "Person",
+            "entityIdKey" : "pId",
+            "entityNameKey" : "pFullName",
+            "properties" : [
+                "pId",
+                "pFullName",
+                "pAge"
+            ],
+            "indices" : ["pId", "pFullName"],
+            "dataSource" : {
+                "dbType" : "csv",
+                "csvFile" : "person.csv"
+            }
+        },
+        {
+            "entityType" : "Work",
+            "entityIdKey" : "wId",
+            "entityNameKey" : "wName",
+            "properties" : [
+                "wId",
+                "wName"
+            ],
+            "indices": ["wId", "wName"],
+            "dataSource" : {
+                "csvFile" : "work.csv",
+                "dbType" : "csv"
+            }
+        }
+    ],
+    "edges" : [
+        {
+            "entityType": "Does",
+            "fromNodeType" : "Person",
+            "fromNodeKey" : "pId",
+            "toNodeType" : "Work",
+            "toNodeKey" : "wId",
+            "properties" : [
+                "skillLevel"
+            ],
+            "dataSource" : {
+                "csvFile" : "person_does_work.csv",
+                "dbType" : "csv"
+            }
+        }
+    ]
+}
