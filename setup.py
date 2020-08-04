@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="autoneo",
-    version="0.0.1",
+    version="0.0.2",
     author="Raghavprasanna Rajagopalan",
     author_email="raghavp96@gmail.com",
     description="A simple tool for building graph databases from multiple relational sources.",
