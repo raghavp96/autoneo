@@ -10,9 +10,12 @@
                 "pFullName",
                 "pAge"
             ],
+            "numeric" : ["pAge"],
             "indices" : ["pId", "pFullName"],
             "dataSource" : {
-                "dbType" : "csv",
+                "dbType" : "sqllite3",
+                "dbFile" : "people_work.db",
+                "queryFile" : "person.sql",
                 "csvFile" : "person.csv"
             }
         },
@@ -24,10 +27,13 @@
                 "wId",
                 "wName"
             ],
+            "numeric" : [],
             "indices": ["wId", "wName"],
             "dataSource" : {
-                "csvFile" : "work.csv",
-                "dbType" : "csv"
+                "dbType" : "sqllite3",
+                "dbFile" : "people_work.db",
+                "queryFile" : "work.sql",
+                "csvFile" : "work.csv"
             }
         }
     ],
@@ -41,9 +47,10 @@
             "properties" : [
                 "skillLevel"
             ],
+            "numeric" : ["skillLevel"],
             "dataSource" : {
-                "csvFile" : "person_does_work.csv",
-                "dbType" : "csv"
+                "dbType" : "csv",
+                "csvFile" : "person_does_work.csv"
             }
         }
     ]

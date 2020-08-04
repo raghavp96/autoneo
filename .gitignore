@@ -1,1 +1,10 @@
 __pycache__
+.pytest_cache
+tests/csv/person.csv
+tests/csv/work.csv
+
+# dist
+.eggs/
+autoneo.egg-info/
+build/
+dist/

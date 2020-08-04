@@ -1,0 +1,1 @@
+select pID, pFullName, pAge from PERSON;

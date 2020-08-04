@@ -2,7 +2,7 @@ import os, os.path
 import json
 from neo4j import GraphDatabase
 
-import exporter, query_builder
+import autoneo.exporter as exporter, autoneo.query_builder as query_builder
 
 def build(config_file, data_directory, query_directory, csv_directory):
     """
@@ -15,7 +15,7 @@ def build(config_file, data_directory, query_directory, csv_directory):
     CSV directory - path to directory containing CSVs (CSV files produced by the build will be stored here as well)
     """
     with open(config_file) as cf:
-        config = json.load(config_file)
+        config = json.load(open(config_file))
 
         nodes = config["nodes"]
         edges = config["edges"]
@@ -29,7 +29,7 @@ def build(config_file, data_directory, query_directory, csv_directory):
             load_db(node, data_directory, query_directory, csv_directory, credentials, isNode=True)
 
         for edge in edges:
-            load_db(node, data_directory, query_directory, csv_directory, credentials, isNode=False)
+            load_db(edge, data_directory, query_directory, csv_directory, credentials, isNode=False)
 
 
 
@@ -49,7 +49,7 @@ def load_db(config_entity, data_directory, query_directory, csv_directory, crede
     db_type = config_entity["dataSource"]["dbType"]
     csv_file_path = os.path.join(csv_directory, config_entity["dataSource"]["csvFile"])
 
-    if db_type is not "csv":
+    if db_type != "csv":
         print("Exporting CSV for " + config_entity["entityType"])
 
         db_file_path = os.path.join(data_directory, config_entity["dataSource"]["dbFile"])

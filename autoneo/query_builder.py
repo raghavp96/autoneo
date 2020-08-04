@@ -1,7 +1,7 @@
 def create_nodes(entity, csv_file_path):
     queries = []
 
-    query = "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM \"file://" + csv_file_path + "\" AS row "
+    query = "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM \"file:///" + csv_file_path + "\" AS row "
     node_properties = entity["properties"]
     prop_string = " {"
 
@@ -26,7 +26,7 @@ def create_nodes(entity, csv_file_path):
 def create_edges(entity, csv_file_path):
     queries = []
 
-    query = "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM \"file://" + csv_file_path + "\" AS row "
+    query = "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM \"file:///" + csv_file_path + "\" AS row "
     query += "MATCH (from:" + entity["fromNodeType"] + " {" + entity["fromNodeKey"] + ": row." + entity["fromNodeKey"] +  "}) "
     query += "MATCH (to:" + entity["toNodeType"] + " {" + entity["toNodeKey"] + ": row." + entity["toNodeKey"] + "}) "
 
@@ -35,7 +35,7 @@ def create_edges(entity, csv_file_path):
     query += "ON CREATE SET"
 
     for prop in entity["properties"]:
-        if is_numeric(prop):
+        if is_numeric(entity, prop):
             query += " e." + prop + " = toFloat(row." + prop + ")"
         else:
             query += " e." + prop + " = row." + prop
@@ -44,3 +44,7 @@ def create_edges(entity, csv_file_path):
 
     queries.append(query)
     return queries
+
+
+def is_numeric(entity, prop):
+    return prop in entity["numeric"]
